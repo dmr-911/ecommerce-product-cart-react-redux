@@ -14,7 +14,7 @@ const Home = () => {
           <div className="productContainer" id="lws-productContainer">
             {/* product item */}
             {cartProducts.map((item) => (
-              <ProductItem item={item} />
+              <ProductItem key={item.id} item={item} />
             ))}
             {/* product item ends */}
           </div>

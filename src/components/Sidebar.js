@@ -1,10 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addProduct } from "../redux/products/actions";
 
 const Sidebar = () => {
+  const dispatch = useDispatch();
+  const initialProduct = {
+    title: "",
+    category: "",
+    image: "",
+    price: "",
+    quantity: "",
+  };
+  const products = useSelector((state) => state.products);
+  const [product, setProduct] = useState(initialProduct);
+
+  const newId = (products) => {
+    const max = products.reduce((a, b) => Math.max(b.id, a), -1);
+    return max + 1;
+  };
+
+  const handleProductSubmit = (e) => {
+    e.preventDefault();
+    dispatch(addProduct({ ...product, id: newId(products) }));
+    setProduct(initialProduct);
+  };
   return (
     <div className="formContainer">
       <h4 className="formTitle">Add New Product</h4>
-      <form className="space-y-4 text-[#534F4F]" id="lws-addProductForm">
+      <form
+        className="space-y-4 text-[#534F4F]"
+        id="lws-addProductForm"
+        onSubmit={handleProductSubmit}
+      >
         {/* product name */}
         <div className="space-y-2">
           <label htmlFor="lws-inputName">Product Name</label>
@@ -12,6 +39,10 @@ const Sidebar = () => {
             className="addProductInput"
             id="lws-inputName"
             type="text"
+            value={product.title}
+            onChange={(e) =>
+              setProduct((prev) => ({ ...prev, title: e.target.value }))
+            }
             required
           />
         </div>
@@ -22,6 +53,10 @@ const Sidebar = () => {
             className="addProductInput"
             id="lws-inputCategory"
             type="text"
+            value={product.category}
+            onChange={(e) =>
+              setProduct((prev) => ({ ...prev, category: e.target.value }))
+            }
             required
           />
         </div>
@@ -32,6 +67,10 @@ const Sidebar = () => {
             className="addProductInput"
             id="lws-inputImage"
             type="text"
+            value={product.image}
+            onChange={(e) =>
+              setProduct((prev) => ({ ...prev, image: e.target.value }))
+            }
             required
           />
         </div>
@@ -44,6 +83,10 @@ const Sidebar = () => {
               className="addProductInput"
               type="number"
               id="lws-inputPrice"
+              value={product.price}
+              onChange={(e) =>
+                setProduct((prev) => ({ ...prev, price: e.target.value }))
+              }
               required
             />
           </div>
@@ -54,6 +97,10 @@ const Sidebar = () => {
               className="addProductInput"
               type="number"
               id="lws-inputQuantity"
+              value={product.quantity}
+              onChange={(e) =>
+                setProduct((prev) => ({ ...prev, quantity: e.target.value }))
+              }
               required
             />
           </div>
