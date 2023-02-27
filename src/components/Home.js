@@ -1,8 +1,11 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import ProductItem from "./ProductItem";
 import Sidebar from "./Sidebar";
 
 const Home = () => {
+  const cartProducts = useSelector((state) => state.products);
+
   return (
     <div>
       <main className="py-16">
@@ -10,7 +13,9 @@ const Home = () => {
           {/* products container */}
           <div className="productContainer" id="lws-productContainer">
             {/* product item */}
-            <ProductItem />
+            {cartProducts.map((item) => (
+              <ProductItem item={item} />
+            ))}
             {/* product item ends */}
           </div>
           {/* products container ends */}

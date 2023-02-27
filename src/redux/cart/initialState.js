@@ -1,11 +1,2 @@
-const initialState = [
-  {
-    id: 1,
-    title: "",
-    category: "",
-    image: "",
-    price: "",
-    quantity: "",
-  },
-];
+const initialState = [];
 export default initialState;

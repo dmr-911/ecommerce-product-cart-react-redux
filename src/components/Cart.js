@@ -1,7 +1,9 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import CartItem from "./CartItem";
 
 const Cart = () => {
+  const products = useSelector((state) => state.cart);
   return (
     <div>
       <main className="py-16">
@@ -10,7 +12,9 @@ const Cart = () => {
           <div className="cartListContainer">
             <div className="space-y-6">
               {/* Cart Item */}
-              <CartItem />
+              {products.map((product) => (
+                <CartItem item={product} />
+              ))}
               {/* Cart Items Ends */}
             </div>
             {/* Bill Details */}
