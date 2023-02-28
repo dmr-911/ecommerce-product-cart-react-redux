@@ -10,7 +10,9 @@ import initialState from "./initialState";
 const cartReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_PRODUCT:
+      // finding existing element
       const isCartItem = state?.find((item) => item?.id === action.payload.id);
+      // if item in cart
       if (isCartItem) {
         return state.map((item) => {
           if (item.id === action.payload.id) {
@@ -24,6 +26,7 @@ const cartReducer = (state = initialState, action) => {
         });
       }
 
+      // if item not in cart
       return [
         ...state,
         {
@@ -31,7 +34,6 @@ const cartReducer = (state = initialState, action) => {
           quantity: 1,
         },
       ];
-
 
     case REMOVE_PRODUCT:
       return state.filter((item) => item.id !== action.payload);
