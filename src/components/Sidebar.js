@@ -24,6 +24,7 @@ const Sidebar = () => {
     dispatch(addProduct({ ...product, id: newId(products) }));
     setProduct(initialProduct);
   };
+
   return (
     <div className="formContainer">
       <h4 className="formTitle">Add New Product</h4>

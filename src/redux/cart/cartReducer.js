@@ -10,19 +10,20 @@ import initialState from "./initialState";
 const cartReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_PRODUCT:
-      // const isCartItem = state.find((item) => item.id === action.payload.id);
-      // if (isCartItem?.id) {
-      //   const itemIndex = state.findIndex(
-      //     (item) => item.id === action.payload.id
-      //   );
-      //   return [
-      //     ...state,
-      //     (state[itemIndex] = {
-      //       ...state[itemIndex],
-      //       quantity: state[itemIndex].quantity + 1,
-      //     }),
-      //   ];
-      // } else {
+      const isCartItem = state?.find((item) => item?.id === action.payload.id);
+      if (isCartItem) {
+        return state.map((item) => {
+          if (item.id === action.payload.id) {
+            return {
+              ...item,
+              quantity: item.quantity + 1,
+            };
+          }
+
+          return item;
+        });
+      }
+
       return [
         ...state,
         {
@@ -30,7 +31,7 @@ const cartReducer = (state = initialState, action) => {
           quantity: 1,
         },
       ];
-    // }
+
 
     case REMOVE_PRODUCT:
       return state.filter((item) => item.id !== action.payload);
@@ -51,11 +52,15 @@ const cartReducer = (state = initialState, action) => {
 
         case DECREASE:
           return state.map((item) => {
-            if (item.id === action.payload.productId) {
-              return {
-                ...item,
-                quantity: item.quantity + 1,
-              };
+            if (item.quantity > 1) {
+              if (item.id === action.payload.productId) {
+                return {
+                  ...item,
+                  quantity: item.quantity - 1,
+                };
+              }
+
+              return item;
             }
 
             return item;
