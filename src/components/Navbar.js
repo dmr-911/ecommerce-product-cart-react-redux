@@ -7,13 +7,16 @@ const Navbar = ({ setHome }) => {
   const totalItems = (items) => {
     return items.reduce(
       (a, b) => a + parseFloat(b?.quantity),
-      // (a, b) => console.log(a, b?.quantity),
       0
     );
   };
+
+  // Effect for total quantity 
   useEffect(() => {
     if (cartItems?.length) {
       setNewCartItems(totalItems(cartItems));
+    } else {
+      setNewCartItems(0);
     }
   }, [cartItems]);
 

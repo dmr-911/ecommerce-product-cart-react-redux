@@ -16,7 +16,6 @@ const ProductItem = ({ item }) => {
       : dispatch(addProduct(product));
   };
 
-  console.log(item?.quantity);
   return (
     <div className="lws-productCard">
       <img className="lws-productImage" src={image} alt="product" />
