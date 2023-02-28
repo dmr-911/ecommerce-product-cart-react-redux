@@ -58,7 +58,7 @@ const cartReducer = (state = initialState, action) => {
 
         case DECREASE:
           return state.map((item) => {
-            if (item.quantity > 1) {
+            if (item.cartQuantity > 1) {
               if (item.id === action.payload.productId) {
                 return {
                   ...item,
