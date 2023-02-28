@@ -1,6 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 const Navbar = ({ setHome }) => {
+  const cartItems = useSelector((state) => state.cart);
+  const [newCartItems, setNewCartItems] = useState(0);
+  const totalItems = (items) => {
+    return items.reduce(
+      (a, b) => a + parseFloat(b?.quantity),
+      // (a, b) => console.log(a, b?.quantity),
+      0
+    );
+  };
+  useEffect(() => {
+    if (cartItems?.length) {
+      setNewCartItems(totalItems(cartItems));
+    }
+  }, [cartItems]);
+
   return (
     <nav className="bg-[#171C2A] py-4">
       <div className="navBar">
@@ -18,7 +34,7 @@ const Navbar = ({ setHome }) => {
             onClick={() => setHome((prev) => !prev)}
           >
             <i className="text-xl fa-sharp fa-solid fa-bag-shopping" />
-            <span id="lws-totalCart">0</span>
+            <span id="lws-totalCart">{newCartItems}</span>
           </button>
         </div>
       </div>
