@@ -4,7 +4,7 @@ import { removeProduct, updateProduct } from "../redux/cart/actions";
 import { DECREASE, INCREASE } from "../redux/cart/actionTypes";
 
 const CartItem = ({ item }) => {
-  const { title, category, price, quantity, image, id } = item;
+  const { title, category, price, image, id, cartQuantity } = item;
   const dispatch = useDispatch();
 
   const removeCartItem = (id) => {
@@ -40,7 +40,7 @@ const CartItem = ({ item }) => {
           >
             <i className="text-lg fa-solid fa-plus" />
           </button>
-          <span className="lws-cartQuantity">{quantity}</span>
+          <span className="lws-cartQuantity">{cartQuantity}</span>
           <button
             className="lws-decrementQuantity"
             onClick={() => handleDecreaseQty(id)}
@@ -50,7 +50,8 @@ const CartItem = ({ item }) => {
         </div>
         {/* price */}
         <p className="text-lg font-bold">
-          BDT <span className="lws-calculatedPrice">{price * quantity}</span>
+          BDT{" "}
+          <span className="lws-calculatedPrice">{price * cartQuantity}</span>
         </p>
       </div>
       {/* delete button */}

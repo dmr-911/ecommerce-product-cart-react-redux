@@ -11,7 +11,7 @@ const ProductItem = ({ item }) => {
   const handleAddToCart = (product) => {
     cartItems.length
       ? selectedItem
-        ? selectedItem.quantity < quantity && dispatch(addProduct(product))
+        ? selectedItem.cartQuantity < quantity && dispatch(addProduct(product))
         : dispatch(addProduct(product))
       : dispatch(addProduct(product));
   };
@@ -31,7 +31,7 @@ const ProductItem = ({ item }) => {
             <span className="lws-quantity">
               {cartItems.length
                 ? selectedItem
-                  ? item?.quantity - selectedItem?.quantity
+                  ? item?.quantity - selectedItem?.cartQuantity
                   : item?.quantity
                 : item?.quantity}
             </span>
@@ -43,7 +43,7 @@ const ProductItem = ({ item }) => {
           disabled={
             cartItems.length &&
             selectedItem &&
-            selectedItem?.quantity >= item?.quantity
+            selectedItem?.cartQuantity >= item?.quantity
           }
         >
           Add To Cart

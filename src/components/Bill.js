@@ -8,7 +8,7 @@ const Bill = () => {
   // price reducer
   const totalItems = (items) => {
     return items.reduce(
-      (a, b) => a + parseFloat(b?.quantity) * parseFloat(b?.price),
+      (a, b) => a + parseFloat(b?.cartQuantity) * parseFloat(b?.price),
       0
     );
   };

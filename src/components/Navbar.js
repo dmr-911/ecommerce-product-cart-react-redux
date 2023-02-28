@@ -5,13 +5,10 @@ const Navbar = ({ setHome }) => {
   const cartItems = useSelector((state) => state.cart);
   const [newCartItems, setNewCartItems] = useState(0);
   const totalItems = (items) => {
-    return items.reduce(
-      (a, b) => a + parseFloat(b?.quantity),
-      0
-    );
+    return items.reduce((a, b) => a + parseFloat(b?.cartQuantity), 0);
   };
 
-  // Effect for total quantity 
+  // Effect for total quantity
   useEffect(() => {
     if (cartItems?.length) {
       setNewCartItems(totalItems(cartItems));

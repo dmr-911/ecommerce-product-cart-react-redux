@@ -18,7 +18,7 @@ const cartReducer = (state = initialState, action) => {
           if (item.id === action.payload.id) {
             return {
               ...item,
-              quantity: item.quantity + 1,
+              cartQuantity: item.cartQuantity + 1,
             };
           }
 
@@ -31,7 +31,7 @@ const cartReducer = (state = initialState, action) => {
         ...state,
         {
           ...action.payload,
-          quantity: 1,
+          cartQuantity: 1,
         },
       ];
 
@@ -43,10 +43,14 @@ const cartReducer = (state = initialState, action) => {
         case INCREASE:
           return state.map((item) => {
             if (item.id === action.payload.productId) {
-              return {
-                ...item,
-                quantity: item.quantity + 1,
-              };
+              // checking cart quantity with available product quantity
+              if (item.cartQuantity < item.quantity) {
+                return {
+                  ...item,
+                  cartQuantity: item.cartQuantity + 1,
+                };
+              }
+              return item;
             }
 
             return item;
@@ -58,7 +62,7 @@ const cartReducer = (state = initialState, action) => {
               if (item.id === action.payload.productId) {
                 return {
                   ...item,
-                  quantity: item.quantity - 1,
+                  cartQuantity: item.cartQuantity - 1,
                 };
               }
 
